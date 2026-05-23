@@ -7,6 +7,5 @@ from django.conf import settings
 
 urlpatterns = [
     path('', include('api.urls')),
-    path('health/', include('health_check.urls')),
     path('i18n/', include(i18n))
 ]
