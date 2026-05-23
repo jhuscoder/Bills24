@@ -18,10 +18,7 @@ dnspython
 drf-spectacular
 idna
 inflection
-jsonschema
-jsonschema-specifications
 oauthlib
-psycopg2-binary
 pycparser
 PyJWT
 python3-openid
@@ -30,7 +27,6 @@ PyYAML
 referencing
 requests
 requests-oauthlib
-rpds-py
 social-auth-app-django
 social-auth-core
 sqlparse
