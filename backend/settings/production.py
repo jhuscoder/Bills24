@@ -1,8 +1,22 @@
 from . import *
 
 # Database Settings (e.g., PostgreSQL)
-DB_NAME=env('DB_NAME', default='the3prime_Bills24')
-DB_USER=env('DB_USER', default='postgres')
-DB_PASSWORD=env('DB_PASSWORD', default='(@#postgres@#)')
-DB_HOST=env('DB_HOST', default='localhost')
-DB_PORT=5432
+DB_NAME=env('DB_NAME')
+DB_USER=env('DB_USER')
+DB_PASSWORD=env('DB_PASSWORD', )
+DB_HOST=env('DB_HOST')
+DB_PORT=env('DB_PORT')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}
