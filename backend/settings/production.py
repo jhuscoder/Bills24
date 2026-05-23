@@ -20,3 +20,8 @@ LOGGING = {
         'level': 'INFO',
     },
 }
+
+# ENCRYPT ALL OUTGOING PAYLOAD BY DEFAULT
+# REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = (
+#     'backend.middleware.EncryptedJSONRenderer',
+# )
