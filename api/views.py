@@ -6,13 +6,11 @@ from django.contrib.auth import logout
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes, renderer_classes
 from rest_framework import permissions, generics
-from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from django.shortcuts import get_object_or_404
 from rest_framework.renderers import JSONRenderer
 from drf_spectacular.utils import extend_schema
-from drf_spectacular.types import OpenApiTypes
 from .response import error_response, pending_response, success_response
 
 logger = logging.getLogger(__name__)

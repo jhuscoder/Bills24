@@ -119,3 +119,26 @@ def handle_outgoing_response(plain_json: Any) -> Optional[str]:
     
     encrypted_json = plain_json
     return json.dumps(encrypted_json)
+
+
+
+
+# Ensure the JWT signing key is at least 32 bytes. If the provided
+# AUTHENTICATION_KEY is too short, derive a 32-byte key using PBKDF2-HMAC-SHA256
+# with the project's SECRET_KEY as salt. This prevents InsecureKeyLengthWarning
+# from PyJWT/cryptography while keeping deterministic, environment-driven keys.
+# _raw_key = (AUTHENTICATION_KEY or '').encode('utf-8')
+
+# if len(_raw_key) < 32:
+#     try:
+#         secret_salt = env('SECRET_KEY').encode('utf-8')
+#     except Exception:
+#         # Fallback to a fixed salt if SECRET_KEY isn't available yet
+#         secret_salt = b'bills-default-salt'
+#     derived = hashlib.pbkdf2_hmac('sha256', _raw_key, secret_salt, 100000, dklen=32)
+#     SIGNING_KEY = base64.urlsafe_b64encode(derived).decode('utf-8')
+#     warnings.warn('AUTHENTICATION_KEY is shorter than 32 bytes; deriving a 32-byte signing key.', UserWarning)
+#     print('Derived JWT signing key from AUTHENTICATION_KEY using PBKDF2-HMAC-SHA256.: ', SIGNING_KEY)
+# else:
+#     SIGNING_KEY = AUTHENTICATION_KEY
+#     print('Using provided AUTHENTICATION_KEY as signing key.')

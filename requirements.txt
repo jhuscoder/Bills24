@@ -35,3 +35,5 @@ tzdata
 uritemplate
 urllib3
 django-health-check
+gunicorn
+whitenoise

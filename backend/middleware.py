@@ -1,6 +1,7 @@
 import json
 import logging
 from django.http import JsonResponse
+from api.response import error_response
 from rest_framework.renderers import JSONRenderer
 from django.utils.deprecation import MiddlewareMixin
 from .utils import handle_outgoing_response, handle_incoming_request
@@ -51,7 +52,7 @@ class DataEncryptionMiddleware(MiddlewareMixin):
                 decrypted_obj = handle_incoming_request(body_text)
 
                 if decrypted_obj is None:
-                    return JsonResponse({"error": "Malformed or unreadable encrypted data"}, status=400)
+                    return error_response('Malformed or unreadable encrypted data', status_code=400)
 
                 # Replace the request body with the decrypted JSON string
                 decrypted_bytes = json.dumps(decrypted_obj).encode('utf-8')
@@ -59,7 +60,7 @@ class DataEncryptionMiddleware(MiddlewareMixin):
                 request.META['CONTENT_LENGTH'] = str(len(decrypted_bytes))
             except Exception as exc:
                 logger.exception("Failed to decrypt incoming request: %s", exc)
-                return JsonResponse({"error": "Malformed or unreadable encrypted data"}, status=400)
+                return error_response('Malformed or unreadable encrypted data', status_code=400)
         return None
 
 class EncryptedJSONRenderer(JSONRenderer):
