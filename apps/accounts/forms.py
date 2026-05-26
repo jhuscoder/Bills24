@@ -6,7 +6,7 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Account
-        fields = ['email','phone']
+        fields = ['email', 'first_name', 'last_name', 'phone']
         
         
 class AccountCreationForm(forms.ModelForm):
@@ -15,7 +15,7 @@ class AccountCreationForm(forms.ModelForm):
 
     class Meta:
         model = Account
-        fields = ['email', 'phone']
+        fields = ['email', 'first_name', 'last_name', 'phone']
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
@@ -41,7 +41,7 @@ class AccountChangeForm(forms.ModelForm):
 
     class Meta:
         model = Account
-        fields = ['email', 'password', 'phone', 'is_active', 'is_staff']
+        fields = ['email', 'password', 'first_name', 'last_name', 'phone', 'is_active', 'is_staff']
 
     def clean_password(self):
         return self.initial['password']

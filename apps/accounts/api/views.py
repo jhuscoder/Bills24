@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework import permissions
 from rest_framework.renderers import JSONRenderer
 from rest_framework import status
-from .serializers import UserRegistrationSerializer, UserProfileSerializer
+from .serializers import UserBalanceSerializer, UserRegistrationSerializer, UserProfileSerializer
 from api.response import success_response, error_response
 from .serializers import (
 	LoginSerializer,
@@ -14,6 +14,9 @@ from .serializers import (
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 from drf_spectacular.types import OpenApiTypes
 from .serializers import TokenSerializer
+from ipware import get_client_ip
+
+
 
 class LoginView(APIView):
 	permission_classes = [permissions.AllowAny]
@@ -24,12 +27,15 @@ class LoginView(APIView):
 		responses=TokenSerializer
 	)
 	def post(self, request, *args, **kwargs):
-		serializer = LoginSerializer(data=request.data)
+		client_ip, is_routable = get_client_ip(request)
+		serializer = LoginSerializer(
+			data=request.data, 
+			context={'ip_address': client_ip}
+		)
 		serializer.is_valid(raise_exception=True)
 		user = serializer.validated_data['user']
 		tokens = serializer.create_tokens(user)
 		return success_response('Login successful', data=tokens)
-
 
 
 class PasswordResetView(APIView):
@@ -109,3 +115,14 @@ class ProfileView(APIView):
 	def get(self, request, *args, **kwargs):
 		serializer = UserProfileSerializer(request.user)
 		return success_response('Profile retrieved', data=serializer.data)
+
+
+
+class UserBalanceView(APIView):
+	permission_classes = [permissions.IsAuthenticated]
+	renderer_classes = [JSONRenderer]
+
+	@extend_schema(responses=UserBalanceSerializer)
+	def get(self, request, *args, **kwargs):
+		serializer = UserBalanceSerializer(request.user)
+		return success_response('Balance retrieved', data=serializer.data)

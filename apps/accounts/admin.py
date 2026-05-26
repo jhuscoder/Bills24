@@ -7,17 +7,18 @@ from .forms import AccountCreationForm, AccountChangeForm
 class AccountAdmin(BaseUserAdmin):
     form = AccountChangeForm
     add_form = AccountCreationForm
-
-    list_display = ('email', 'is_staff', 'is_active')
+    
+    list_display = ('email', 'first_name', 'last_name', 'is_staff', 'is_active')
     list_filter = ('is_staff', 'is_active')
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
+        ("Personal Info", {'fields': ('first_name', 'last_name', 'phone')}),
         ('Permissions', {'fields': ('is_staff', 'is_active', 'groups', 'user_permissions')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'phone', 'password1', 'password2', 'is_staff', 'is_active'),
+            'fields': ('email', 'first_name', 'last_name', 'phone', 'password1', 'password2', 'is_staff', 'is_active'),
         }),
     )
     search_fields = ('email',)

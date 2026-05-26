@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airtime Purchase Receipt</title>
+</head>
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f8; margin: 0; padding: 0; -webkit-font-smoothing: antialiased;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f4f6f8; padding: 20px 0;">
+        <tr>
+            <td align="center">
+                <!-- Main Container -->
+                <table role="presentation" width="100%" max-width="600" cellspacing="0" cellpadding="0" border="0" style="max-width: 600px; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); margin: 0 auto;">
+                    
+                    <!-- Header Banner -->
+                    <tr>
+                        <td style="background-color: #059669; padding: 35px 40px; text-align: center;">
+                            <div style="background-color: #d1fae5; width: 48px; height: 48px; border-radius: 50%; line-height: 48px; display: inline-block; margin-bottom: 12px;">
+                                <span style="color: #059669; font-size: 24px; font-weight: bold;">✓</span>
+                            </div>
+                            <h1 style="color: #ffffff; font-size: 24px; font-weight: 700; margin: 0; letter-spacing: -0.5px;">Payment Successful</h1>
+                            <p style="color: #a7f3d0; font-size: 14px; margin: 6px 0 0 0;">Thank you for your purchase</p>
+                        </td>
+                    </tr>
+
+                    <!-- Body Content -->
+                    <tr>
+                        <td style="padding: 40px;">
+                            <p style="font-size: 16px; line-height: 24px; color: #334155; margin-top: 0;">
+                                Hi <strong>{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}</strong>,
+                            </p>
+                            <p style="font-size: 15px; line-height: 24px; color: #475569; margin-bottom: 30px;">
+                                Your airtime purchase request was processed successfully. The top-up has been sent to the mobile number specified below.
+                            </p>
+
+                            <!-- Transaction Summary Table -->
+                            <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b; margin: 0 0 12px 0; font-weight: 600;">Transaction Details</h3>
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="12" border="0" style="background-color: #f8fafc; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 30px; font-size: 14px; color: #334155;">
+                                <tr>
+                                    <td width="40%" style="font-weight: 600; color: #64748b; border-bottom: 1px solid #e2e8f0;">Phone Number:</td>
+                                    <td style="border-bottom: 1px solid #e2e8f0; font-weight: 600; color: #0f172a;">{{ phone_number }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 600; color: #64748b; border-bottom: 1px solid #e2e8f0;">Network Provider:</td>
+                                    <td style="border-bottom: 1px solid #e2e8f0;">{{ network_provider }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 600; color: #64748b; border-bottom: 1px solid #e2e8f0;">Transaction ID:</td>
+                                    <td style="border-bottom: 1px solid #e2e8f0; font-family: monospace; font-size: 13px;">{{ transaction_id }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 600; color: #64748b; border-bottom: 1px solid #e2e8f0;">Date & Time:</td>
+                                    <td style="border-bottom: 1px solid #e2e8f0;">{{ payment_date|date:"Y-m-d H:i:s T" }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 600; color: #64748b; border-bottom: 1px solid #e2e8f0;">Payment Method:</td>
+                                    <td style="border-bottom: 1px solid #e2e8f0;">{{ payment_method }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; color: #0f172a; font-size: 16px; padding-top: 16px;">Amount Charged:</td>
+                                    <td style="font-weight: bold; color: #059669; font-size: 18px; padding-top: 16px;">{{ currency }} {{ amount }}</td>
+                                </tr>
+                            </table>
+
+                            <!-- Help Callout -->
+                            <p style="font-size: 14px; line-height: 22px; color: #64748b; margin: 0; text-align: center;">
+                                Value is typically delivered within 2 minutes. If the recipient hasn't received the airtime, please quote your Transaction ID to our support team.
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Footer Section -->
+                    <tr>
+                        <td style="background-color: #f8fafc; padding: 24px 40px; border-top: 1px solid #e2e8f0; text-align: center;">
+                            <p style="font-size: 13px; line-height: 20px; color: #64748b; margin: 0 0 12px 0;">
+                                Questions? Visit our <a href="{{ support_url }}" style="color: #059669; text-decoration: none; font-weight: 500;">Help Center</a> or email <a href="mailto:{{ support_email }}" style="color: #059669; text-decoration: none; font-weight: 500;">{{ support_email }}</a>.
+                            </p>
+                            <p style="font-size: 12px; line-height: 18px; color: #94a3b8; margin: 0;">
+                                &copy; {{ current_year }} Your Company Name. All rights reserved.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <!-- End Main Container -->
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

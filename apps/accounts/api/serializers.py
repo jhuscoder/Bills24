@@ -9,6 +9,11 @@ from rest_framework_simplejwt.tokens import AccessToken
 from django.conf import settings
 
 
+class UserBalanceSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Account
+		fields = ('balance',)
+
 class UserProfileSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Account
@@ -64,14 +69,27 @@ class LoginSerializer(serializers.Serializer):
 	email = serializers.EmailField()
 	password = serializers.CharField(write_only=True)
 
-	def validate(self, attrs):
+	def validate(self, attrs, **kwargs):
 		email = attrs.get('email')
 		password = attrs.get('password')
+		ip_address = self.context.get('ip_address')
 		user = authenticate(username=email, password=password)
 		if not user:
 			raise serializers.ValidationError('Unable to log in with provided credentials.')
 		if not user.is_active:
 			raise serializers.ValidationError('User account is disabled.')
+		
+		try:
+			Utils.send_mail_threaded({
+				'subject': 'InApp Notification: New Login Detected',
+				'template_plain': 'emails/login/login_notification.txt',
+				'template_html': 'emails/login/login_notification.html',
+				'context': {'user': user, 'ip_address': ip_address},
+			})
+		except Exception:
+			# swallow exceptions so registration still succeeds
+			pass
+
 		attrs['user'] = user
 		return attrs
 
@@ -80,7 +98,6 @@ class LoginSerializer(serializers.Serializer):
 		return {
 			'access': str(access),
 		}
-
 
 class ChangePasswordSerializer(serializers.Serializer):
 	old_password = serializers.CharField(write_only=True)

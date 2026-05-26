@@ -155,6 +155,7 @@ class ExternalProxyBase(APIView):
 
 		# Determine required amount for pre-check (if possible)
 		required_amount = None
+
 		try:
 			if 'amount' in payload and payload.get('amount') is not None:
 				required_amount = Decimal(str(payload.get('amount')))
@@ -189,6 +190,7 @@ class ExternalProxyBase(APIView):
 
 		# Pre-check user balance if authenticated and we could determine an amount
 		user = getattr(self.request, 'user', None)
+		
 		if user and getattr(user, 'is_authenticated', False) and required_amount is not None:
 			current_balance = getattr(user, 'balance', None)
 			try:
@@ -224,6 +226,7 @@ class ExternalProxyBase(APIView):
 				amt = data_block.get('amount_charged') or data_block.get('amount') or data_block.get('amount_charged')
 				if amt is not None:
 					debit_amount = Decimal(str(amt))
+
 			# fallback to required_amount
 			if debit_amount is None:
 				debit_amount = required_amount
@@ -251,6 +254,7 @@ class ExternalProxyBase(APIView):
 					except Exception:
 						# ignore transaction save errors for now
 						pass
+
 		except Exception:
 			# swallow any debit errors and return provider response
 				pass
@@ -297,7 +301,6 @@ class AirtimeView(ExternalProxyBase):
 	@extend_schema(request=AirtimeRequestSerializer, responses=OpenApiResponse(response=ApiWrapperSerializer, description='Airtime purchase result'))
 	def post(self, request):
 		return self.call_provider_post('api/v2/airtime', request.data)
-
 
 
 class VariationsDataView(ExternalProxyBase):

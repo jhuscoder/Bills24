@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Notification</title>
+</head>
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f8; margin: 0; padding: 0; -webkit-font-smoothing: antialiased;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f4f6f8; padding: 20px 0;">
+        <tr>
+            <td align="center">
+                <!-- Main Container -->
+                <table role="presentation" width="100%" max-width="600" cellspacing="0" cellpadding="0" border="0" style="max-width: 600px; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); margin: 0 auto;">
+                    
+                    <!-- Header Banner -->
+                    <tr>
+                        <td style="background-color: #1e293b; padding: 30px 40px; text-align: center;">
+                            <h1 style="color: #ffffff; font-size: 24px; font-weight: 600; margin: 0; letter-spacing: -0.5px;">Security Alert</h1>
+                        </td>
+                    </tr>
+
+                    <!-- Body Content -->
+                    <tr>
+                        <td style="padding: 40px;">
+                            <p style="font-size: 16px; line-height: 24px; color: #334155; margin-top: 0;">
+                                Hi <strong>{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.email }}{% endif %}</strong>,
+                            </p>
+                            <p style="font-size: 15px; line-height: 24px; color: #475569; margin-bottom: 24px;">
+                                We detected a new login to your account. If this was you, no action is needed.
+                            </p>
+
+                            <!-- Login Details Table -->
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="12" border="0" style="background-color: #f8fafc; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 24px; font-size: 14px; color: #334155;">
+                                <tr>
+                                    <td width="30%" style="font-weight: 600; color: #64748b; border-bottom: 1px solid #e2e8f0;">Time:</td>
+                                    <td style="border-bottom: 1px solid #e2e8f0;">{% now "l, d-F-Y g:i:s A T" %}</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 600; color: #64748b; border-bottom: 1px solid #e2e8f0;">IP Address:</td>
+                                    <td style="border-bottom: 1px solid #e2e8f0; font-family: monospace;">{{ ip_address|default:"Unknown" }}</td>
+                                </tr>
+                                {% if device or browser %}
+                                <tr>
+                                    <td style="font-weight: 600; color: #64748b;">Device/Browser:</td>
+                                    <td>{{ browser|default:"Chrome" }} on {{ device|default:"Android" }}</td>
+                                </tr>
+                                {% endif %}
+                            </table>
+
+                            <!-- Warning Section -->
+                            <div style="border-left: 4px solid #ef4444; background-color: #fef2f2; padding: 16px; border-radius: 4px; margin-bottom: 30px;">
+                                <p style="font-size: 14px; line-height: 20px; color: #991b1b; margin: 0; font-weight: 500;">
+                                    <strong>Not you?</strong> Someone else might have accessed your account. Please change your password immediately to secure your information.
+                                </p>
+                            </div>
+
+                            <!-- Call to Action Button -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-bottom: 20px;">
+                                <tr>
+                                    <td align="center" style="background-color: #dc2626; border-radius: 6px;">
+                                        <a href="{{ password_reset_url }}" target="_blank" style="display: inline-block; font-size: 15px; font-weight: 600; color: #ffffff; text-decoration: none; padding: 12px 30px; border-radius: 6px; border: 1px solid #dc2626;">
+                                            Reset Password
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Footer Section -->
+                    <tr>
+                        <td style="background-color: #f8fafc; padding: 24px 40px; border-top: 1px solid #e2e8f0; text-align: center;">
+                            <p style="font-size: 12px; line-height: 18px; color: #94a3b8; margin: 0;">
+                                This is an automated security notification. Please do not reply directly to this email.
+                            </p>
+                            <p style="font-size: 12px; line-height: 18px; color: #94a3b8; margin: 6px 0 0 0;">
+                                &copy; {{ current_year }} The Bills24. All rights reserved.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <!-- End Main Container -->
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

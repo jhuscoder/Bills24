@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Our Platform</title>
+</head>
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f8; margin: 0; padding: 0; -webkit-font-smoothing: antialiased;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f4f6f8; padding: 20px 0;">
+        <tr>
+            <td align="center">
+                <!-- Main Container -->
+                <table role="presentation" width="100%" max-width="600" cellspacing="0" cellpadding="0" border="0" style="max-width: 600px; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); margin: 0 auto;">
+                    
+                    <!-- Header Banner -->
+                    <tr>
+                        <td style="background-color: #2563eb; padding: 40px; text-align: center;">
+                            <h1 style="color: #ffffff; font-size: 28px; font-weight: 700; margin: 0; letter-spacing: -0.5px;">Welcome aboard!</h1>
+                            <p style="color: #bfdbfe; font-size: 16px; margin: 10px 0 0 0;">We're thrilled to have you with us.</p>
+                        </td>
+                    </tr>
+
+                    <!-- Body Content -->
+                    <tr>
+                      <html>
+                        <td style="padding: 40px;">
+                            <p style="font-size: 16px; line-height: 24px; color: #334155; margin-top: 0;">
+                                Hi <strong>{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}</strong>,
+                            </p>
+                            <p style="font-size: 15px; line-height: 24px; color: #475569; margin-bottom: 24px;">
+                                Thank you for creating an account! Our platform is built to help you streamline your workflow and get results faster. Here are the first steps to help you get started right away:
+                            </p>
+
+                            <!-- Onboarding Steps -->
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-bottom: 30px;">
+                                <!-- Step 1 -->
+                                <tr>
+                                    <td valign="top" width="40" style="padding-bottom: 20px;">
+                                        <div style="background-color: #eff6ff; color: #2563eb; font-weight: 700; border-radius: 50%; width: 28px; height: 28px; line-height: 28px; text-align: center; font-size: 14px;">1</div>
+                                    </td>
+                                    <td valign="top" style="padding-bottom: 20px; font-size: 15px; line-height: 22px; color: #334155;">
+                                        <strong style="color: #0f172a;">Complete your profile</strong><br>
+                                        Add a profile picture and set your preferences.
+                                    </td>
+                                </tr>
+                                <!-- Step 2 -->
+                                <tr>
+                                    <td valign="top" width="40" style="padding-bottom: 20px;">
+                                        <div style="background-color: #eff6ff; color: #2563eb; font-weight: 700; border-radius: 50%; width: 28px; height: 28px; line-height: 28px; text-align: center; font-size: 14px;">2</div>
+                                    </td>
+                                    <td valign="top" style="padding-bottom: 20px; font-size: 15px; line-height: 22px; color: #334155;">
+                                        <strong style="color: #0f172a;">Explore the dashboard</strong><br>
+                                        Familiarize yourself with your new personal workspace tools.
+                                    </td>
+                                </tr>
+                                <!-- Step 3 -->
+                                <tr>
+                                    <td valign="top" width="40;">
+                                        <div style="background-color: #eff6ff; color: #2563eb; font-weight: 700; border-radius: 50%; width: 28px; height: 28px; line-height: 28px; text-align: center; font-size: 14px;">3</div>
+                                    </td>
+                                    <td valign="top" style="font-size: 15px; line-height: 22px; color: #334155;">
+                                        <strong style="color: #0f172a;">Read the quickstart guide</strong><br>
+                                        Check out our documentation to unlock advanced features.
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Call to Action Button -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-bottom: 10px;">
+                                <tr>
+                                    <td align="center" style="background-color: #2563eb; border-radius: 6px;">
+                                        <a href="{{ dashboard_url }}" target="_blank" style="display: inline-block; font-size: 16px; font-weight: 600; color: #ffffff; text-decoration: none; padding: 14px 35px; border-radius: 6px; border: 1px solid #2563eb;">
+                                            Go to Your Dashboard
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Footer Section -->
+                    <tr>
+                        <td style="background-color: #f8fafc; padding: 24px 40px; border-top: 1px solid #e2e8f0; text-align: center;">
+                            <p style="font-size: 14px; line-height: 20px; color: #64748b; margin: 0 0 16px 0;">
+                                Need help getting set up? Reply directly to this email or visit our <a href="{{ support_url }}" style="color: #2563eb; text-decoration: none; font-weight: 500;">Support Center</a>.
+                            </p>
+                            <p style="font-size: 12px; line-height: 18px; color: #94a3b8; margin: 0;">
+                                &copy; {{ current_year }} The Bills Team. All rights reserved.
+
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <!-- End Main Container -->
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
