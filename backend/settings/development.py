@@ -5,7 +5,6 @@ HEALTH_CHECK = {
     'MEMORY_MIN': 100,    # in MB
 }
 
-# SECURE_SSL_REDIRECT = False
-# SESSION_COOKIE_SECURE = False
-# CSRF_COOKIE_SECURE = False
-# SECURE_HSTS_SECONDS = 0
+# REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = (
+#     'backend.middleware.EncryptedJSONRenderer',
+# )

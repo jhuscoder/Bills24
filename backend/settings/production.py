@@ -7,6 +7,7 @@ import dj_database_url
 #     conn_max_age=600,
 #     conn_health_checks=True,
 # )
+
 # DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 
 DATABASES = {
@@ -21,7 +22,7 @@ DATABASES = {
 }
 
 # Security recommendations for production
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'http')
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = env.bool('SECURE_SSL_REDIRECT', default=True)
