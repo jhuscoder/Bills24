@@ -16,7 +16,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "health_check",  # required
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
@@ -37,7 +36,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'backend.middleware.ResponseHeadersMiddleware',
+    # 'backend.middleware.ResponseHeadersMiddleware',
 ]
 
 ROOT_URLCONF = env("ROOT_URLCONF")
