@@ -5,7 +5,7 @@ set -o errexit
 # Install dependencies
 python -m pip install --upgrade pip
 
-pip install --upgrade -r requirements-locked.txt
+pip install --upgrade -r requirements.txt
 
 # Run migrations
 python manage.py makemigrations
