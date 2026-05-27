@@ -1,0 +1,6 @@
+pytest
+pytest-django
+black
+isort
+flake8
+coverage

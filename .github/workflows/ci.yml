@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: bills24
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+
+    env:
+      DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/bills24
+      DJANGO_SETTINGS_MODULE: settings.development
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt -r requirements-extras.txt -r requirements-dev.txt
+        env:
+          PIP_DISABLE_PIP_VERSION_CHECK: '1'
+
+      - name: Wait for Postgres
+        run: |
+          python - <<PY
+import time
+import os
+import psycopg2
+from urllib.parse import urlparse
+url = os.environ.get('DATABASE_URL')
+for i in range(30):
+    try:
+        result = urlparse(url)
+        conn = psycopg2.connect(dbname=result.path.lstrip('/'), user=result.username, password=result.password, host=result.hostname, port=result.port)
+        conn.close()
+        print('Postgres is available')
+        break
+    except Exception:
+        print('Waiting for Postgres...')
+        time.sleep(2)
+else:
+    raise SystemExit('Postgres did not become ready')
+PY
+
+      - name: Run linters and format checks
+        run: |
+          black --check .
+          isort --check-only .
+          flake8
+
+      - name: Run migrations
+        run: |
+          python manage.py migrate --noinput
+
+      - name: Run tests
+        run: |
+          pytest -q
